@@ -6,9 +6,10 @@
 //
 
 #include <iostream>
-
+using namespace std;
 int main() {
     int r=8, f=5;
     int sum=r*f;
+    cout<<sum;
     return 0;
 }
