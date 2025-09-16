@@ -2,6 +2,8 @@
 #include <iomanip>
 #include <vector>
 #include <string>
+#include <algorithm>
+
 using std::cout;
 using std::cin;
 using std::endl;
@@ -56,30 +58,36 @@ int main(){
         cout<<setw(10)<<left<<Past.var<<
         "|"<<setw(15)<<right<<Past.pav;
         if(pasirinkti == 1 || pasirinkti == 3)
-            cout<<"|"<<setw(15)<<fixed<<setprecision(2)<<Past.gal;
+            cout<<"|"<<setw(16)<<fixed<<setprecision(2)<<Past.gal;
         if(pasirinkti == 2 || pasirinkti == 3)
             cout<<"|"<<setw(15)<<fixed<<setprecision(2)<<Past.med;
         cout<<endl;}
 }
 
 Studentas Stud_iv(){
-    int n, laik_paz, sum=0;
+    int laik_paz, sum=0;
+    int m=0;
     Studentas Pirmas;
     cout<<"Iveskite studento duomenis"<<endl;
     cout<<"Vardas: "; cin>>Pirmas.var;
     cout<<"Pavarde: "; cin>>Pirmas.pav;
-    cout<<"Kiek pazymiu turi "<<Pirmas.var<<" "<<Pirmas.pav<<"? ";
-    cin>>n;
-    for(int a=0;a<n;a++)
+    cout<<"Iveskite namu darbu pazymius (baigimas - neigiamas skaicius): ";
+    while(true)
     {
-        cout<<a+1<<": ";
+        cout<<m+1<<": ";
         cin>>laik_paz;
+        if(laik_paz<0) break;
+        if(laik_paz>10){
+            cout<<"Klaida: pazymys negali buti didesnis uz 10, Bandykite dar karta: "<<endl;
+            continue;
+        }
         Pirmas.paz.push_back(laik_paz);
         sum+=laik_paz;
+        m++;
     }
     cout<<"Iveskite egzamino paz.:";
     cin>>Pirmas.egz;
-    Pirmas.gal=double(sum)/double(n)*0.4+Pirmas.egz*0.6;
+    Pirmas.gal=double(sum)/Pirmas.paz.size()*0.4+Pirmas.egz*0.6;
     Pirmas.med=mediana(Pirmas.paz)*0.4+Pirmas.egz*0.6;
     if(Pirmas.med>10)
         Pirmas.med=10;
@@ -91,7 +99,8 @@ double mediana(vector<int> v){
     sort(v.begin(), v.end());
     size_t x=v.size();
     if (x%2==0)
-        return v[x/2-1]+v[x/2]/2;
+        return v[x/2-1]+v[x/2]/2.0;
     else
         return v[x/2];
 };
+
