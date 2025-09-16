@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <random>
 
 using std::cout;
 using std::cin;
@@ -14,6 +15,9 @@ using std::left;
 using std::right;
 using std::setprecision;
 using std::fixed;
+using std::random_device;
+using std::mt19937;
+using std::uniform_int_distribution;
 
 
 struct Studentas{
@@ -25,17 +29,21 @@ struct Studentas{
     double med;
 };
 
-Studentas Stud_iv();
+Studentas Stud_iv(mt19937 & gener, uniform_int_distribution<int> & pazym, uniform_int_distribution<int> & nd);
 double mediana(vector<int> v);
 
 int main(){
+    random_device rd;
+    mt19937 gener(rd());
+    uniform_int_distribution<int> pazym(1,10);
+    uniform_int_distribution<int> nd(1,10);
     vector<Studentas> Grupe;
     cout<<"Kiek studentu grupeje? ";
     int m;
     cin>>m;
     
     for(auto z=0; z<m; z++)
-      Grupe.push_back(Stud_iv());
+      Grupe.push_back(Stud_iv(gener, pazym, nd));
     cout<<"Studento info: "<<endl;
     
     int pasirinkti=0;
@@ -64,30 +72,57 @@ int main(){
         cout<<endl;}
 }
 
-Studentas Stud_iv(){
+Studentas Stud_iv(mt19937 & gener, uniform_int_distribution<int> & pazym, uniform_int_distribution<int> & nd){
     int laik_paz, sum=0;
     int m=0;
     Studentas Pirmas;
     cout<<"Iveskite studento duomenis"<<endl;
     cout<<"Vardas: "; cin>>Pirmas.var;
     cout<<"Pavarde: "; cin>>Pirmas.pav;
-    cout<<"Iveskite namu darbu pazymius (baigimas - neigiamas skaicius): ";
-    while(true)
-    {
-        cout<<m+1<<": ";
-        cin>>laik_paz;
-        if(laik_paz<0) break;
-        if(laik_paz>10){
-            cout<<"Klaida: pazymys negali buti didesnis uz 10, Bandykite dar karta: "<<endl;
-            continue;
+    cout<<"Pasirinkite duomenu ivedimo buda:"<<endl;
+    cout<<"1 - duomenis ivesti ranka"<<endl;
+    cout<<"2 - sugeneruoti pazymius atsitiktinai"<<endl;
+    cout<<"Pasirinkimas: ";
+    int ivest=0;
+    cin>>ivest;
+    bool atsit=(ivest==2);
+
+    if(atsit){
+        int nd_kiek=nd(gener);
+        cout<<"Sugeneruoti "<<nd_kiek<<" namu darbu pazymiai: ";
+        for(int i=0; i<nd_kiek; i++){
+            laik_paz=pazym(gener);
+            Pirmas.paz.push_back(laik_paz);
+            sum+=laik_paz;
+            cout<<laik_paz<<" ";}
+        cout<<endl;
+        Pirmas.egz=pazym(gener);
+        cout<<"Sugeneruotas egzamino pazymys: "<<Pirmas.egz<<endl;}
+    else{
+        cout<<"Iveskite namu darbu pazymius (baigimas - neigiamas skaicius): ";
+        while(true)
+        {
+            cout<<m+1<<": ";
+            cin>>laik_paz;
+            if(laik_paz<0) break;
+            if(laik_paz>10){
+                cout<<"Klaida: pazymys negali buti didesnis uz 10, Bandykite dar karta: "<<endl;
+                continue;
+            }
+            Pirmas.paz.push_back(laik_paz);
+            sum+=laik_paz;
+            m++;
         }
-        Pirmas.paz.push_back(laik_paz);
-        sum+=laik_paz;
-        m++;
-    }
-    cout<<"Iveskite egzamino paz.:";
-    cin>>Pirmas.egz;
-    Pirmas.gal=double(sum)/Pirmas.paz.size()*0.4+Pirmas.egz*0.6;
+        cout<<"Iveskite egzamino paz.:";
+        cin>>Pirmas.egz;
+        while(Pirmas.egz<0 || Pirmas.egz>10){
+            cout<<"Klaida: egzamino pazymys turi buti tarp 0 ir 10. Bandykite dar karta: ";
+            cin>>Pirmas.egz;
+        }}
+    if(!Pirmas.paz.empty()){
+        Pirmas.gal=double(sum)/Pirmas.paz.size()*0.4+Pirmas.egz*0.6;}
+    else{
+        Pirmas.gal=Pirmas.egz*0.6;}
     Pirmas.med=mediana(Pirmas.paz)*0.4+Pirmas.egz*0.6;
     if(Pirmas.med>10)
         Pirmas.med=10;
@@ -99,8 +134,8 @@ double mediana(vector<int> v){
     sort(v.begin(), v.end());
     size_t x=v.size();
     if (x%2==0)
-        return v[x/2-1]+v[x/2]/2.0;
+        return (v[x/2-1]+v[x/2])/2.0;
     else
         return v[x/2];
-};
+}
 
