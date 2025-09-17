@@ -4,6 +4,7 @@
 #include <string>
 #include <algorithm>
 #include <random>
+#include <fstream>
 
 using std::cout;
 using std::cin;
@@ -18,6 +19,9 @@ using std::fixed;
 using std::random_device;
 using std::mt19937;
 using std::uniform_int_distribution;
+using std::ifstream;
+using std::getline;
+using std::ws;
 
 
 struct Studentas{
@@ -38,13 +42,40 @@ int main(){
     uniform_int_distribution<int> pazym(1,10);
     uniform_int_distribution<int> nd(1,10);
     vector<Studentas> Grupe;
-    cout<<"Kiek studentu grupeje? ";
-    int m;
-    cin>>m;
     
-    for(auto z=0; z<m; z++)
-      Grupe.push_back(Stud_iv(gener, pazym, nd));
-    cout<<"Studento info: "<<endl;
+    cout<<"Pasirinkite kaip ivesti duomenis:"<<endl;
+    cout<<"1 - suvesti ranka"<<endl;
+    cout<<"2 - nuskaityti is failo"<<endl;
+    cout<<"Pasirinkimas: ";
+    int pas=0;
+    cin>>pas;
+    
+    if (pas==1){
+        cout<<"Kiek studentu grupeje? ";
+        int m;
+        cin>>m;
+        
+        for(auto z=0; z<m; z++)
+            Grupe.push_back(Stud_iv(gener, pazym, nd));}
+    else if (pas==2){
+        ifstream fd("kursiokai.txt");
+        if (!fd.is_open()){
+            cout<<"Nepavyko atidaryti failo."<<endl;}
+        string antraste;
+        getline(fd, antraste);
+        int pazymiai;
+        for (int i=0; i<40; i++){
+            Studentas st;
+            int sum=0;
+            fd>>st.var>>st.pav;
+            for (int x=0; x<5; x++){
+                fd>>pazymiai;
+                st.paz.push_back(pazymiai);
+                sum+=pazymiai;}
+            fd>>st.egz;
+            st.gal=double(sum)/5*0.4+st.egz*0.6;
+            st.med=0.4*mediana(st.paz)+st.egz*0.6;
+            Grupe.push_back(st);}}
     
     int pasirinkti=0;
     cout<<"Pasirinkite galutinio balo skaiciavimo buda:"<<endl;
