@@ -37,6 +37,8 @@ struct Studentas{
 
 Studentas Stud_iv(mt19937 & gener, uniform_int_distribution<int> & pazym, uniform_int_distribution<int> & nd);
 double mediana(vector<int> v);
+bool vardas(const Studentas a, const Studentas b);
+bool pavarde(const Studentas a, const Studentas b);
 
 int main(){
     random_device rd;
@@ -60,7 +62,7 @@ int main(){
         for(auto z=0; z<m; z++)
             Grupe.push_back(Stud_iv(gener, pazym, nd));}
     else if (pas==2){
-        ifstream fd("kursiokai.txt");
+        ifstream fd("studentai1000000.txt");
         if (!fd.is_open()){
             cout<<"Nepavyko atidaryti failo."<<endl;}
         string antraste;
@@ -92,23 +94,35 @@ int main(){
     cout<<"Jusu pasirinkimas: ";
     cin>>pasirinkti;
     
+    int rikiuoti;
+    cout<<"Pasirinkti pagal ka rikiuoti:"<<endl;
+    cout<<"1 - pagal varda"<<endl;
+    cout<<"2 - pagal pavarde"<<endl;
+    cout<<"Pasirinkimas: ";
+    cin>>rikiuoti;
+    
+    if(rikiuoti==1){
+        sort(Grupe.begin(), Grupe.end(), vardas);}
+    else if(rikiuoti==2){
+        sort(Grupe.begin(), Grupe.end(), pavarde);}
+    
     ofstream fr("rezultatai.txt");
     
-    fr<<setw(10)<<left<<"Vardas"<<"|"<<setw(15)<<right<<"Pavarde";
+    fr<<setw(15)<<left<<"Vardas"<<"|"<<setw(20)<<right<<"Pavarde";
     if(pasirinkti == 1 || pasirinkti == 3)
-        fr<<"|"<<setw(15)<<"Galutinis (vid.)";
+        fr<<"|"<<setw(20)<<"Galutinis (vid.)";
     if(pasirinkti == 2 || pasirinkti == 3)
-        fr<<"|"<<setw(15)<<"Galutinis (Med.)";
+        fr<<"|"<<setw(20)<<"Galutinis (Med.)";
     fr<<endl;
-    fr<<string(60,'-')<<endl;
+    fr<<string(75,'-')<<endl;
     
     for (auto Past:Grupe){
-        fr<<setw(10)<<left<<Past.var<<
-        "|"<<setw(15)<<right<<Past.pav;
+        fr<<setw(15)<<left<<Past.var<<
+        "|"<<setw(20)<<right<<Past.pav;
         if(pasirinkti == 1 || pasirinkti == 3)
-            fr<<"|"<<setw(16)<<fixed<<setprecision(2)<<Past.gal;
+            fr<<"|"<<setw(20)<<fixed<<setprecision(2)<<Past.gal;
         if(pasirinkti == 2 || pasirinkti == 3)
-            fr<<"|"<<setw(15)<<fixed<<setprecision(2)<<Past.med;
+            fr<<"|"<<setw(20)<<fixed<<setprecision(2)<<Past.med;
         fr<<endl;}
 }
 
@@ -178,5 +192,10 @@ double mediana(vector<int> v){
     else
         return v[x/2];
 }
+
+bool vardas(const Studentas a, const Studentas b){
+    return a.var<b.var;}
+bool pavarde(const Studentas a, const Studentas b){
+    return a.pav<b.pav;}
 
 
