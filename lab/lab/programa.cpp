@@ -62,7 +62,7 @@ int main(){
         for(auto z=0; z<m; z++)
             Grupe.push_back(Stud_iv(gener, pazym, nd));}
     else if (pas==2){
-        ifstream fd("studentai1000000.txt");
+        ifstream fd("studentai10000.txt");
         if (!fd.is_open()){
             cout<<"Nepavyko atidaryti failo."<<endl;}
         string antraste;
@@ -158,6 +158,11 @@ Studentas Stud_iv(mt19937 & gener, uniform_int_distribution<int> & pazym, unifor
         {
             cout<<m+1<<": ";
             cin>>laik_paz;
+            if(cin.fail()){
+                cin.clear();
+                cin.ignore(10000, '\n');
+                cout<<"Klaida: reikia ivesti skaiciu nuo 0 iki 10"<<endl;
+                continue;}
             if(laik_paz<0) break;
             if(laik_paz>10){
                 cout<<"Klaida: pazymys negali buti didesnis uz 10, Bandykite dar karta: "<<endl;
@@ -177,7 +182,8 @@ Studentas Stud_iv(mt19937 & gener, uniform_int_distribution<int> & pazym, unifor
         Pirmas.gal=double(sum)/Pirmas.paz.size()*0.4+Pirmas.egz*0.6;}
     else{
         Pirmas.gal=Pirmas.egz*0.6;}
-    Pirmas.med=mediana(Pirmas.paz)*0.4+Pirmas.egz*0.6;
+    double median=mediana(Pirmas.paz);
+    Pirmas.med=median*0.4+Pirmas.egz*0.6;
     if(Pirmas.med>10)
         Pirmas.med=10;
     return Pirmas;
