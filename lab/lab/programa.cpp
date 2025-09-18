@@ -21,8 +21,10 @@ using std::random_device;
 using std::mt19937;
 using std::uniform_int_distribution;
 using std::ifstream;
+using std::ofstream;
 using std::getline;
 using std::istringstream;
+
 
 struct Studentas{
     string var;
@@ -90,22 +92,24 @@ int main(){
     cout<<"Jusu pasirinkimas: ";
     cin>>pasirinkti;
     
-    cout<<setw(10)<<left<<"Vardas"<<"|"<<setw(15)<<right<<"Pavarde";
+    ofstream fr("rezultatai.txt");
+    
+    fr<<setw(10)<<left<<"Vardas"<<"|"<<setw(15)<<right<<"Pavarde";
     if(pasirinkti == 1 || pasirinkti == 3)
-        cout<<"|"<<setw(15)<<"Galutinis (vid.)";
+        fr<<"|"<<setw(15)<<"Galutinis (vid.)";
     if(pasirinkti == 2 || pasirinkti == 3)
-        cout<<"|"<<setw(15)<<"Galutinis (Med.)";
-    cout<<endl;
-    cout<<string(60,'-')<<endl;
+        fr<<"|"<<setw(15)<<"Galutinis (Med.)";
+    fr<<endl;
+    fr<<string(60,'-')<<endl;
     
     for (auto Past:Grupe){
-        cout<<setw(10)<<left<<Past.var<<
+        fr<<setw(10)<<left<<Past.var<<
         "|"<<setw(15)<<right<<Past.pav;
         if(pasirinkti == 1 || pasirinkti == 3)
-            cout<<"|"<<setw(16)<<fixed<<setprecision(2)<<Past.gal;
+            fr<<"|"<<setw(16)<<fixed<<setprecision(2)<<Past.gal;
         if(pasirinkti == 2 || pasirinkti == 3)
-            cout<<"|"<<setw(15)<<fixed<<setprecision(2)<<Past.med;
-        cout<<endl;}
+            fr<<"|"<<setw(15)<<fixed<<setprecision(2)<<Past.med;
+        fr<<endl;}
 }
 
 Studentas Stud_iv(mt19937 & gener, uniform_int_distribution<int> & pazym, uniform_int_distribution<int> & nd){
@@ -174,4 +178,5 @@ double mediana(vector<int> v){
     else
         return v[x/2];
 }
+
 
