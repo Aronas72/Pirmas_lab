@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <random>
 #include <fstream>
+#include <sstream>
 
 using std::cout;
 using std::cin;
@@ -21,8 +22,7 @@ using std::mt19937;
 using std::uniform_int_distribution;
 using std::ifstream;
 using std::getline;
-using std::ws;
-
+using std::istringstream;
 
 struct Studentas{
     string var;
@@ -63,17 +63,22 @@ int main(){
             cout<<"Nepavyko atidaryti failo."<<endl;}
         string antraste;
         getline(fd, antraste);
-        int pazymiai;
-        for (int i=0; i<40; i++){
+        string eil;
+        while (getline(fd, eil)){
+            istringstream iss(eil);
             Studentas st;
+            st.paz.clear();
+            iss>>st.var>>st.pav;
+            vector<int> sk;
+            int k;
+            while (iss>>k){
+                sk.push_back(k);}
+            st.egz=sk.back();
+            sk.pop_back();
+            st.paz=sk;
             int sum=0;
-            fd>>st.var>>st.pav;
-            for (int x=0; x<5; x++){
-                fd>>pazymiai;
-                st.paz.push_back(pazymiai);
-                sum+=pazymiai;}
-            fd>>st.egz;
-            st.gal=double(sum)/5*0.4+st.egz*0.6;
+            for(int nd:st.paz) sum+=nd;
+            st.gal=double(sum)/st.paz.size()*0.4+st.egz*0.6;
             st.med=0.4*mediana(st.paz)+st.egz*0.6;
             Grupe.push_back(st);}}
     
