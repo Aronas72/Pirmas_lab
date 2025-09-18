@@ -10,3 +10,5 @@ Sukurta pirma versija v0.1, kurioje:
 - Duomenų nuskaitymas iš failo ir išvedimas į rezultatų tekstinį failą.
 - Rikiavimo funkcija, kuri surikiuoja studentus pagal vardą arba pavardę.
 - Parašius kodą buvo keblumų dėl tam tikrų detalių, kaip o kas jeigu vietoj pažymio būtų įvedama raidė. Tuo atveju programa lūžo, bet pastebėjus tai, ši klaida buvo ištaisyta pačiu paskutiniu commit'u.
+
+Kodą rasti: lab->lab->programa.cpp.
