@@ -24,6 +24,7 @@ using std::ifstream;
 using std::ofstream;
 using std::getline;
 using std::istringstream;
+using std::to_string;
 
 
 struct Studentas{
@@ -39,6 +40,7 @@ Studentas Stud_iv(mt19937 & gener, uniform_int_distribution<int> & pazym, unifor
 double mediana(vector<int> v);
 bool vardas(const Studentas a, const Studentas b);
 bool pavarde(const Studentas a, const Studentas b);
+void generavimas(const string & failpav, size_t kiekis, mt19937 & gener);
 
 int main(){
     random_device rd;
@@ -46,6 +48,21 @@ int main(){
     uniform_int_distribution<int> pazym(1,10);
     uniform_int_distribution<int> nd(1,10);
     vector<Studentas> Grupe;
+    
+    cout<<"Pasirinkti veiksma:"<<endl;
+    cout<<"1 - ivesti studentus ranka arba nuskaityti is failo."<<endl;
+    cout<<"2 - sugeneruoti failus paciam"<<endl;
+    cout<<"Pasirinkimas: ";
+    int pasirinkimas=0;
+    cin>>pasirinkimas;
+    
+    if(pasirinkimas==2){
+        generavimas("mano1000.txt", 1000, gener);
+        generavimas("mano10000.txt", 10000, gener);
+        generavimas("mano100000.txt", 100000, gener);
+        generavimas("mano1000000.txt", 1000000, gener);
+        generavimas("mano10000000.txt", 10000000, gener);
+    }
     
     cout<<"Pasirinkite kaip ivesti duomenis:"<<endl;
     cout<<"1 - suvesti ranka"<<endl;
@@ -206,3 +223,26 @@ bool vardas(const Studentas a, const Studentas b){
     return a.var<b.var;}
 bool pavarde(const Studentas a, const Studentas b){
     return a.pav<b.pav;}
+
+void generavimas(const string & failpav, size_t kiekis, mt19937 & gener){
+    uniform_int_distribution<int> pazym(1, 10);
+    uniform_int_distribution<int> nd_kiekis(1, 10);
+    ofstream fr(failpav);
+    if(!fr.is_open()){
+        cout<<"Nepavyko sukurti failo: "<<failpav<<endl;
+        return;}
+    fr<<setw(15)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde";
+    int ndkiek=nd_kiekis(gener);
+    for(int i=1; i<=ndkiek; i++){
+        fr<<setw(7)<<right<<("ND"+to_string(i));}
+    fr<<setw(10)<<right<<"Egzaminas"<<endl;
+    
+    for(size_t i=1; i<=kiekis; i++){
+        fr<<setw(15)<<left<<("Vardas"+to_string(i))<<setw(20)<<left<<("Pavarde"+to_string(i));
+        for(int j=1; j<=ndkiek; j++){
+            fr<<setw(7)<<right<<pazym(gener);}
+        fr<<setw(10)<<right<<pazym(gener)<<endl;}
+    fr.close();
+    cout<<"Sugeneruotas failas: "<<failpav<<". "<<kiekis<<" irasu, "<<ndkiek<<" ND irasu."<<endl;
+}
+
