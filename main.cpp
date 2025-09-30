@@ -25,6 +25,7 @@ using std::ofstream;
 using std::getline;
 using std::istringstream;
 using std::to_string;
+using std::sort;
 
 
 struct Studentas{
@@ -62,7 +63,17 @@ int main(){
         generavimas("mano100000.txt", 100000, gener);
         generavimas("mano1000000.txt", 1000000, gener);
         generavimas("mano10000000.txt", 10000000, gener);
-    }
+        
+        int pasirink=0;
+        cout<<"Ar nori testi programa?"<<endl;
+        cout<<"1 - baigti programa tik sugeneravus failus"<<endl;
+        cout<<"2 - testi toliau (duomenu nuskaitymas/ivedimas)"<<endl;
+        cout<<"Pasirinkimas: ";
+        cin>>pasirink;
+        
+        if(pasirink == 1){
+            cout<<"Programa baigta."<<endl;
+            return 0;}}
     
     cout<<"Pasirinkite kaip ivesti duomenis:"<<endl;
     cout<<"1 - suvesti ranka"<<endl;
@@ -113,6 +124,50 @@ int main(){
     cout<<"3 - abu"<<endl;
     cout<<"Jusu pasirinkimas: ";
     cin>>pasirinkti;
+    
+    int rik;
+    cout<<"Pasirinkti pagal ka rikiuoti:"<<endl;
+    cout<<"1 - pagal varda"<<endl;
+    cout<<"2 - pagal pavarde"<<endl;
+    cout<<"Pasirinkimas: ";
+    cin>>rik;
+    
+    vector<Studentas> vargsiukai;
+    vector<Studentas> galvociai;
+    
+    for(const auto & st: Grupe){
+        double balas=0.0;
+        if(pasirinkti == 1) balas=st.gal;
+        else if(pasirinkti == 2) balas=st.med;
+        else if(pasirinkti == 3) balas=st.gal;
+        
+        if(balas<5.0){
+            vargsiukai.push_back(st);}
+        else{
+            galvociai.push_back(st);}}
+    
+    if(rik==1){
+        sort(vargsiukai.begin(), vargsiukai.end(), vardas);
+        sort(galvociai.begin(), galvociai.end(), vardas);}
+    else if(rik==2){
+        sort(vargsiukai.begin(), vargsiukai.end(), pavarde);
+        sort(galvociai.begin(), galvociai.end(), pavarde);}
+    
+    ofstream fv("vargsiukai.txt");
+    fv<<setw(15)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde"<<setw(10)<<left<<"Balas"<<endl;
+    fv<<string(45, '-')<<endl;
+    for(const auto & st: vargsiukai){
+        fv<<setw(15)<<left<<st.var<<setw(20)<<left<<st.pav<<setw(10)<<left<<fixed<<setprecision(2)<<(pasirinkti == 2 ? st.med:st.gal)<<endl;}
+    fv.close();
+    
+    ofstream fg("galvociai.txt");
+    fg<<setw(15)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde"<<setw(10)<<left<<"Balas"<<endl;
+    fg<<string(45, '-')<<endl;
+    for(const auto & st: galvociai){
+        fg<<setw(15)<<left<<st.var<<setw(20)<<left<<st.pav<<setw(10)<<left<<fixed<<setprecision(2)<<(pasirinkti == 2 ? st.med:st.gal)<<endl;}
+    fg.close();
+    
+    cout<<"Is viso: "<<vargsiukai.size()<<" vargsiuku ir "<<galvociai.size()<<" galvociu."<<endl;
     
     int rikiuoti;
     cout<<"Pasirinkti pagal ka rikiuoti:"<<endl;
