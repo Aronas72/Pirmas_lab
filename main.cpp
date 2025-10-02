@@ -14,23 +14,57 @@ int main(){
     int pasirinkimas=0;
     cin>>pasirinkimas;
     
+    double bendras_laikas=0.0;
+    
     if(pasirinkimas==2){
-        generavimas("mano1000.txt", 1000, gener);
-        generavimas("mano10000.txt", 10000, gener);
-        generavimas("mano100000.txt", 100000, gener);
-        generavimas("mano1000000.txt", 1000000, gener);
-        generavimas("mano10000000.txt", 10000000, gener);
+        {auto start=std::chrono::high_resolution_clock::now();
+            generavimas("mano1000.txt", 1000, gener);
+            auto end=std::chrono::high_resolution_clock::now();
+            std::chrono::duration<double> diff=end-start;
+            cout<<"Failo mano1000.txt generavimas uztruko: "<<diff.count()<<" sekundziu"<<endl;
+            bendras_laikas+=diff.count();}
         
-        int pasirink=0;
-        cout<<"Ar nori testi programa?"<<endl;
-        cout<<"1 - baigti programa tik sugeneravus failus"<<endl;
-        cout<<"2 - testi toliau (duomenu nuskaitymas/ivedimas)"<<endl;
-        cout<<"Pasirinkimas: ";
-        cin>>pasirink;
+        {auto start=std::chrono::high_resolution_clock::now();
+            generavimas("mano10000.txt", 10000, gener);
+            auto end=std::chrono::high_resolution_clock::now();
+            std::chrono::duration<double> diff=end-start;
+            cout<<"Failo mano10000.txt generavimas uztruko: "<<diff.count()<<" sekundziu"<<endl;
+            bendras_laikas+=diff.count();}
         
-        if(pasirink == 1){
-            cout<<"Programa baigta."<<endl;
-            return 0;}}
+        {auto start=std::chrono::high_resolution_clock::now();
+            generavimas("mano100000.txt", 100000, gener);
+            auto end=std::chrono::high_resolution_clock::now();
+            std::chrono::duration<double> diff=end-start;
+            cout<<"Failo mano100000.txt generavimas uztruko: "<<diff.count()<<" sekundziu"<<endl;
+            bendras_laikas+=diff.count();}
+        
+        {auto start=std::chrono::high_resolution_clock::now();
+            generavimas("mano1000000.txt", 1000000, gener);
+            auto end=std::chrono::high_resolution_clock::now();
+            std::chrono::duration<double> diff=end-start;
+            cout<<"Failo mano1000000.txt generavimas uztruko: "<<diff.count()<<" sekundziu"<<endl;
+            bendras_laikas+=diff.count();}
+        
+        {auto start=std::chrono::high_resolution_clock::now();
+            generavimas("mano10000000.txt", 10000000, gener);
+            auto end=std::chrono::high_resolution_clock::now();
+            std::chrono::duration<double> diff=end-start;
+            cout<<"Failo mano10000000.txt generavimas uztruko: "<<diff.count()<<" sekundziu"<<endl;
+            bendras_laikas+=diff.count();}
+        
+        cout<<"------------------------------------------"<<endl;
+        cout<<"Bendras visu failu generavimo laikas: "<<bendras_laikas<<" sekundziu"<<endl;
+    
+    int pasirink=0;
+    cout<<"Ar nori testi programa?"<<endl;
+    cout<<"1 - baigti programa tik sugeneravus failus"<<endl;
+    cout<<"2 - testi toliau (duomenu nuskaitymas/ivedimas)"<<endl;
+    cout<<"Pasirinkimas: ";
+    cin>>pasirink;
+    
+    if(pasirink == 1){
+        cout<<"Programa baigta."<<endl;
+        return 0;}}
     
     vector<Studentas> grupe=nuskaitymas(gener, pazym, nd);
     
