@@ -9,6 +9,7 @@
 #include <random>
 #include <fstream>
 #include <sstream>
+#include <chrono>
 
 using std::cout;
 using std::cin;
@@ -29,6 +30,8 @@ using std::getline;
 using std::istringstream;
 using std::to_string;
 using std::sort;
+using std::chrono::high_resolution_clock;
+using std::chrono::duration;
 
 
 struct Studentas{
@@ -46,6 +49,8 @@ bool vardas(const Studentas a, const Studentas b);
 bool pavarde(const Studentas a, const Studentas b);
 bool galutinis(const Studentas a, const Studentas b, int pasirinkti);
 vector<Studentas> nuskaitymas(mt19937 & gener, uniform_int_distribution<int> & pazym,uniform_int_distribution<int> & nd);
+vector<Studentas> nuskaitymas(mt19937 & gener, uniform_int_distribution<int> & pazym,uniform_int_distribution<int> & nd, const string& failpav);
 void isvedimas(vector<Studentas> Grupe, vector<Studentas> vargsiukai, vector<Studentas> galvociai, int pasirinkti, int rik);
+void testavimas(mt19937 & gener, uniform_int_distribution<int> & pazym, uniform_int_distribution<int> & nd);
 
 #endif
