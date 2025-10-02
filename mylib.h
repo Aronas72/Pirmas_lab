@@ -1,0 +1,51 @@
+#ifndef MYLIB_H
+#define MYLIB_H
+
+#include <iostream>
+#include <iomanip>
+#include <vector>
+#include <string>
+#include <algorithm>
+#include <random>
+#include <fstream>
+#include <sstream>
+
+using std::cout;
+using std::cin;
+using std::endl;
+using std::string;
+using std::vector;
+using std::setw;
+using std::left;
+using std::right;
+using std::setprecision;
+using std::fixed;
+using std::random_device;
+using std::mt19937;
+using std::uniform_int_distribution;
+using std::ifstream;
+using std::ofstream;
+using std::getline;
+using std::istringstream;
+using std::to_string;
+using std::sort;
+
+
+struct Studentas{
+    string var;
+    string pav;
+    vector <int> paz;
+    int egz;
+    double gal;
+    double med;
+};
+
+Studentas Stud_iv(mt19937 & gener, uniform_int_distribution<int> & pazym, uniform_int_distribution<int> & nd);
+double mediana(vector<int> v);
+bool vardas(const Studentas a, const Studentas b);
+bool pavarde(const Studentas a, const Studentas b);
+bool galutinis(const Studentas a, const Studentas b, int pasirinkti);
+vector<Studentas> nuskaitymas(mt19937 & gener, uniform_int_distribution<int> & pazym,uniform_int_distribution<int> & nd);
+void isvedimas(vector<Studentas> Grupe, vector<Studentas> vargsiukai, vector<Studentas> galvociai, int pasirinkti, int rik);
+
+#endif
