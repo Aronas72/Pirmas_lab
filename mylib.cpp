@@ -103,6 +103,7 @@ vector<Studentas> nuskaitymas(mt19937 & gener, uniform_int_distribution<int> & p
         string failpav;
         cout<<"Iveskite failo pavadinima: ";
         cin>>failpav;
+        auto start = std::chrono::high_resolution_clock::now();
         ifstream fd(failpav);
         if (!fd.is_open()){
             cout<<"Nepavyko atidaryti failo."<<endl;}
@@ -125,7 +126,11 @@ vector<Studentas> nuskaitymas(mt19937 & gener, uniform_int_distribution<int> & p
             for(int nd:st.paz) sum+=nd;
             st.gal=double(sum)/st.paz.size()*0.4+st.egz*0.6;
             st.med=0.4*mediana(st.paz)+st.egz*0.6;
-            Grupe.push_back(st);}}
+            Grupe.push_back(st);}
+        auto end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> diff = end - start;
+        cout << "Failo nuskaitymas uztruko: " << diff.count() << " s" << endl;
+          }
     return Grupe;
 }
 
@@ -147,6 +152,78 @@ vector<Studentas> nuskaitymas(mt19937 & gener, uniform_int_distribution<int> & p
         st.med=0.4*mediana(st.paz)+st.egz*0.6;
         Grupe.push_back(st);}
     return Grupe;
+}
+
+list<Studentas> nuskaitymaslist(mt19937 & gener, uniform_int_distribution<int> & pazym,uniform_int_distribution<int> & nd){list<Studentas> Grupe;
+    cout<<"Pasirinkite kaip ivesti duomenis:"<<endl;
+    cout<<"1 - suvesti ranka"<<endl;
+    cout<<"2 - nuskaityti is failo"<<endl;
+    cout<<"Pasirinkimas: ";
+    int pas=0;
+    cin>>pas;
+    
+    if (pas==1){
+        cout<<"Kiek studentu grupeje? ";
+        int m;
+        cin>>m;
+        for(auto z=0; z<m; z++)
+            Grupe.push_back(Stud_iv(gener, pazym, nd));}
+    else if (pas==2){
+        string failpav;
+        cout<<"Iveskite failo pavadinima: ";
+        cin>>failpav;
+        auto start = high_resolution_clock::now();
+        ifstream fd(failpav);
+        if (!fd.is_open()){
+            cout<<"Nepavyko atidaryti failo."<<endl;}
+        string antraste;
+        getline(fd, antraste);
+        string eil;
+        while (getline(fd, eil)){
+            istringstream iss(eil);
+            Studentas st;
+            st.paz.clear();
+            iss>>st.var>>st.pav;
+            vector<int> sk;
+            int k;
+            while (iss>>k){
+                sk.push_back(k);}
+            st.egz=sk.back();
+            sk.pop_back();
+            st.paz=sk;
+            int sum=0;
+            for(int nd:st.paz) sum+=nd;
+            if(!st.paz.empty())
+                st.gal=double(sum)/st.paz.size()*0.4+st.egz*0.6;
+            else st.gal=st.egz*0.6;
+            st.med=0.4*mediana(st.paz)+st.egz*0.6;
+            Grupe.push_back(st);}
+        auto end = high_resolution_clock::now();
+        duration<double> diff = end - start;
+        cout << "Failo nuskaitymas uztruko: " << diff.count() << " s" << endl;
+    }
+    return Grupe;}
+
+list<Studentas> nuskaitymaslist(mt19937 & gener, uniform_int_distribution<int> & pazym,uniform_int_distribution<int> & nd, const string& failpav){
+    list<Studentas> Grupe;
+        ifstream fd(failpav);
+        if (!fd.is_open()){ cout<<"Nepavyko atidaryti failo."<<endl; return Grupe;}
+        string antraste; getline(fd, antraste);
+        string eil;
+        while (getline(fd, eil)){
+            istringstream iss(eil);
+            Studentas st; st.paz.clear();
+            iss>>st.var>>st.pav;
+            vector<int> sk; int k;
+            while (iss>>k){ sk.push_back(k); }
+            st.egz=sk.back(); sk.pop_back(); st.paz=sk;
+            int sum=0; for(int nd:st.paz) sum+=nd;
+            if(!st.paz.empty())
+                st.gal=double(sum)/st.paz.size()*0.4+st.egz*0.6;
+            else st.gal=st.egz*0.6;
+            st.med=0.4*mediana(st.paz)+st.egz*0.6;
+            Grupe.push_back(st);}
+        return Grupe;
 }
 
 void isvedimas(vector<Studentas> Grupe, vector<Studentas> vargsiukai, vector<Studentas> galvociai, int pasirinkti, int rik){
@@ -205,6 +282,64 @@ void isvedimas(vector<Studentas> Grupe, vector<Studentas> vargsiukai, vector<Stu
     fr.close();
     
     cout<<"Is viso: "<<vargsiukai.size()<<" vargsiuku ir "<<galvociai.size()<<" galvociu."<<endl;
+}
+
+void isvedimaslist(list<Studentas> Grupe, list<Studentas> vargsiukai, list<Studentas> galvociai, int pasirinkti, int rik){
+    list<Studentas> grp = Grupe;
+    list<Studentas> v = vargsiukai;
+    list<Studentas> g = galvociai;
+    
+    if(rik==1){
+            grp.sort([](const Studentas &a, const Studentas &b){ return a.var < b.var; });
+            v.sort([](const Studentas &a, const Studentas &b){ return a.var < b.var; });
+            g.sort([](const Studentas &a, const Studentas &b){ return a.var < b.var; });
+        }
+        else if(rik==2){
+            grp.sort([](const Studentas &a, const Studentas &b){ return a.pav < b.pav; });
+            v.sort([](const Studentas &a, const Studentas &b){ return a.pav < b.pav; });
+            g.sort([](const Studentas &a, const Studentas &b){ return a.pav < b.pav; });
+        }
+        else if(rik==3){
+            grp.sort([&](const Studentas & a, const Studentas & b){ return galutinis(a,b,pasirinkti); });
+            v.sort([&](const Studentas & a, const Studentas & b){ return galutinis(a,b,pasirinkti); });
+            g.sort([&](const Studentas & a, const Studentas & b){ return galutinis(a,b,pasirinkti); });
+        }
+    
+    ofstream fv("vargsiukai.txt");
+    fv<<setw(15)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde"<<setw(10)<<left<<"Balas"<<endl;
+    fv<<string(45, '-')<<endl;
+    for(const auto & st: v){
+        fv<<setw(15)<<left<<st.var<<setw(20)<<left<<st.pav<<setw(10)<<left<<fixed<<setprecision(2)<<(pasirinkti == 2 ? st.med:st.gal)<<endl;}
+    fv.close();
+    
+    ofstream fg("galvociai.txt");
+    fg<<setw(15)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde"<<setw(10)<<left<<"Balas"<<endl;
+    fg<<string(45, '-')<<endl;
+    for(const auto & st: g){
+        fg<<setw(15)<<left<<st.var<<setw(20)<<left<<st.pav<<setw(10)<<left<<fixed<<setprecision(2)<<(pasirinkti == 2 ? st.med:st.gal)<<endl;}
+    fg.close();
+    
+    ofstream fr("rezultatai.txt");
+    
+    fr<<setw(15)<<left<<"Vardas"<<"|"<<setw(20)<<right<<"Pavarde";
+    if(pasirinkti == 1 || pasirinkti == 3)
+        fr<<"|"<<setw(20)<<"Galutinis (vid.)";
+    if(pasirinkti == 2 || pasirinkti == 3)
+        fr<<"|"<<setw(20)<<"Galutinis (Med.)";
+    fr<<endl;
+    fr<<string(75,'-')<<endl;
+    
+    for (auto Past:grp){
+        fr<<setw(15)<<left<<Past.var<<
+        "|"<<setw(20)<<right<<Past.pav;
+        if(pasirinkti == 1 || pasirinkti == 3)
+            fr<<"|"<<setw(20)<<fixed<<setprecision(2)<<Past.gal;
+        if(pasirinkti == 2 || pasirinkti == 3)
+            fr<<"|"<<setw(20)<<fixed<<setprecision(2)<<Past.med;
+        fr<<endl;}
+    fr.close();
+    
+    cout<<"Is viso: "<<v.size()<<" vargsiuku ir "<<g.size()<<" galvociu."<<endl;
 }
 
 void testavimas(mt19937 & gener, uniform_int_distribution<int> & pazym, uniform_int_distribution<int> & nd){
