@@ -4,6 +4,7 @@
 #include <iostream>
 #include <iomanip>
 #include <vector>
+#include <list>
 #include <string>
 #include <algorithm>
 #include <random>
@@ -16,6 +17,7 @@ using std::cin;
 using std::endl;
 using std::string;
 using std::vector;
+using std::list;
 using std::setw;
 using std::left;
 using std::right;
@@ -49,8 +51,11 @@ bool vardas(const Studentas a, const Studentas b);
 bool pavarde(const Studentas a, const Studentas b);
 bool galutinis(const Studentas a, const Studentas b, int pasirinkti);
 vector<Studentas> nuskaitymas(mt19937 & gener, uniform_int_distribution<int> & pazym,uniform_int_distribution<int> & nd);
+list<Studentas> nuskaitymaslist(mt19937 & gener, uniform_int_distribution<int> & pazym,uniform_int_distribution<int> & nd);
 vector<Studentas> nuskaitymas(mt19937 & gener, uniform_int_distribution<int> & pazym,uniform_int_distribution<int> & nd, const string& failpav);
+list<Studentas> nuskaitymaslist(mt19937 & gener, uniform_int_distribution<int> & pazym,uniform_int_distribution<int> & nd, const string& failpav);
 void isvedimas(vector<Studentas> Grupe, vector<Studentas> vargsiukai, vector<Studentas> galvociai, int pasirinkti, int rik);
+void isvedimaslist(list<Studentas> Grupe, list<Studentas> vargsiukai, list<Studentas> galvociai, int pasirinkti, int rik);
 void testavimas(mt19937 & gener, uniform_int_distribution<int> & pazym, uniform_int_distribution<int> & nd);
 
 #endif
