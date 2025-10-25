@@ -97,8 +97,9 @@ vector<Studentas> nuskaitymas(mt19937 & gener, uniform_int_distribution<int> & p
         int m;
         cin>>m;
         
-        for(auto z=0; z<m; z++)
-            Grupe.push_back(Stud_iv(gener, pazym, nd));}
+        for(auto z=0; z<m; z++){
+            Grupe.push_back(Stud_iv(gener, pazym, nd));
+            cout<<"Objekto saugojimo atmintyje adresas (vector): "<< (void*)&Grupe.back()<<endl;}}
     else if (pas==2){
         string failpav;
         cout<<"Iveskite failo pavadinima: ";
@@ -166,8 +167,10 @@ list<Studentas> nuskaitymaslist(mt19937 & gener, uniform_int_distribution<int> &
         cout<<"Kiek studentu grupeje? ";
         int m;
         cin>>m;
-        for(auto z=0; z<m; z++)
-            Grupe.push_back(Stud_iv(gener, pazym, nd));}
+        for(auto z=0; z<m; z++){
+            Grupe.push_back(Stud_iv(gener, pazym, nd));
+            auto it=std::prev(Grupe.end());
+            cout<<"Objekto saugojimo atmintyje adresas (list): "<<(void*)&(*it)<<endl;}}
     else if (pas==2){
         string failpav;
         cout<<"Iveskite failo pavadinima: ";
