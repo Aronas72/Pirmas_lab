@@ -36,37 +36,37 @@ v0.3 versijoje taip pat atlikti keli pakeitimai:
 - Rankiniu būdu įvedus duomenis galima pamatyti objekto saugojimo atmintyje adresą.
 - Atlikta spartos analizė su Vector ir List konteineriais.
 
-Analizė:
+Analizė: buvo matuojami 3 parametrai: nuskaitymas iš failo ir talpinimas pasirinktame konteineryje, rūšiavimas į dvi grupes (vargšiukai ir galvočiai), duomenų įrašymas į failą. Analizė atlikta su iš anksto sugeneruotais failais. Visi testai buvo atlikti 5 kartus ir gauti rezultatai surašyti į lenteles.
 
 Rezultatai:
 
 Surūšiavimas į dvi grupes:
-|Įrašų skaičius|   Vector (s.)   |   List (s.)   |
-|--------------|----------------:|--------------:|
-|1 000         |      0.0003     |               |
-|10 000        |      0.0026     |               |
-|100 000       |      0.0243     |               |
-|1 000 000     |      0.2776     |               |
-|10 000 000    |      2.9258     |               |
+|Įrašų skaičius|   Vector (s.)    |   List (s.)  |
+|--------------|-----------------:|-------------:|
+|1 000         |      0.0003      |     0.0002   |
+|10 000        |      0.0026      |     0.0024   |
+|100 000       |      0.0243      |     0.0232   |
+|1 000 000     |      0.2776      |     0.2757   |
+|10 000 000    |      2.9258      |     3.0777   |
 
 Failų skaitymas:
-|Įrašų skaičius|   Vector (s.)   |   List (s.)   |
-|--------------|----------------:|--------------:|
-|1 000         |      0.0075     |               |
-|10 000        |      0.0386     |               |
-|100 000       |      0.3294     |               |
-|1 000 000     |      4.6707     |               |
-|10 000 000    |     36.3395     |               |
+|Įrašų skaičius|   Vector (s.)    |   List (s.)   |
+|--------------|-----------------:|--------------:|
+|1 000         |      0.0075      |     0.0052    |
+|10 000        |      0.0386      |     0.0357    |
+|100 000       |      0.3294      |     0.3273    |
+|1 000 000     |      4.6707      |     4.6867    |
+|10 000 000    |     36.3395      |    37.7434    |
 
 Duomenų įrašymas į failą:
-|Įrašų skaičius|   Vector (s.)   |   List (s.)   |
-|--------------|----------------:|--------------:|
-|1 000         |      0.0019     |               |
-|10 000        |      0.0194     |               |
-|100 000       |      0.1668     |               |
-|1 000 000     |      1.7955     |               |
-|10 000 000    |     20.1897     |               |
+|Įrašų skaičius|   Vector (s.)    |   List (s.)   |
+|--------------|-----------------:|--------------:|
+|1 000         |      0.0019      |     0.0019    |
+|10 000        |      0.0194      |     0.0177    |
+|100 000       |      0.1668      |     0.1738    |
+|1 000 000     |      1.7955      |     1.8345    |
+|10 000 000    |     20.1897      |     21.602    |
 
-IŠVADOS: 
+IŠVADOS: iš rezultatų matome, kad labai didelių skirtumų tarp konteinerių nėra. Su duomenų kiekiais iki 1000000 įskaitant dirbama labai panašiu tempu, tik galima išskirti 1000000 duomenų įrašymą į failą, kur rezultatas truputį aiškesnis. Nuo 10000000 matome jau Vector konteinerio pranašumą visose testavimo kategorijose, kai skirtumas siekia 1-1.5 sekundės.
 
-Kompiutrio parametrai, su kuriuo buvo atliktas testavimas: 
+Kompiutrio parametrai, su kuriuo buvo atliktas testavimas: 8 GB RAM, SSD 251 GB, procesorius gali būti iki 3.49 GHz.
