@@ -374,8 +374,6 @@ void testavimas(mt19937 & gener, uniform_int_distribution<int> & pazym, uniform_
     double lskaitymas=0.0, lskirstymas=0.0, lisvedimas=0.0;
     
     for(int p=0; p<pal; p++){
-        //
-        //auto start_bendras = high_resolution_clock::now();
         
         auto start = high_resolution_clock::now();
         vector<Studentas> grupe = nuskaitymas(gener, pazym, nd, failas);
@@ -384,13 +382,7 @@ void testavimas(mt19937 & gener, uniform_int_distribution<int> & pazym, uniform_
         //
         vskaitymas=vskaitymas+diff.count();
         cout<<"Vektoriaus "<<p+1<<" nuskaitymo laikas: "<<diff.count()<<" s"<<endl;
-        //
-        /*start = high_resolution_clock::now();
-         sort(grupe.begin(), grupe.end(), [](const Studentas &a, const Studentas &b){ return a.gal < b.gal; });
-         end = high_resolution_clock::now();
-         diff = end - start;
-         cout<<grupe.size()<<" irasu rusiavimas didejimo tvarka laikas, su sort funkcija: "<<diff.count()<<" s"<<endl;*/
-        
+    
         start = high_resolution_clock::now();
         vector<Studentas> vargsiukai, galvociai;
         for(auto & st: grupe){
@@ -415,19 +407,6 @@ void testavimas(mt19937 & gener, uniform_int_distribution<int> & pazym, uniform_
         visvedimas=visvedimas+diff.count();
         cout<<"Vektoriaus "<<p+1<<" rasymas i failus uztruko: "<<diff.count()<<" s"<<endl;
         
-        /*start = high_resolution_clock::now();
-         ofstream fg("galvociai_test.txt");
-         for(auto & st: galvociai) fg<<st.var<<" "<<st.pav<<" "<<st.gal<<endl;
-         fg.close();
-         end = high_resolution_clock::now();
-         cout<<grupe.size()<<" irasu galvociu irasymo i faila laikas: "<<diff.count()<<" s"<<endl;
-         
-         auto end_bendras = high_resolution_clock::now();
-         diff = end_bendras - start_bendras;
-         cout<<"Bendras testavimo laikas: "<<diff.count()<<" s"<<endl;
-         
-         cout<<"-------------------------------"<<endl;
-         cout<<"Testavimas baigtas"<<endl;*/
         start = high_resolution_clock::now();
         list<Studentas> grupelist = nuskaitymaslist(gener, pazym, nd, failas);
         end = high_resolution_clock::now();
@@ -466,4 +445,3 @@ void testavimas(mt19937 & gener, uniform_int_distribution<int> & pazym, uniform_
     cout<<"Listas: skaitymo vidurkis: "<<(lskaitymas/pal)<<" s, dalijimo i dvi grupes vidurkis: "<<(lskirstymas/pal)<<" s, isvedimo vidurkis: "<<(lisvedimas/pal)<<" s"<<endl;
     cout<<"Testavimo pabaiga."<<endl;
     }
-
