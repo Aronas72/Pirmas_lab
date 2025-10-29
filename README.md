@@ -15,12 +15,19 @@ Kodą rasti: lab->lab->programa.cpp.
 
 # Versija v0.2
 
-Vidurkiai:
-- 1000 įrašų failas nuskaitomas vidutiniškai per 0.015 s., rūšiaviams atliekamas per vidutiniškai 0.0005 s., dalijimas i dvi grupes per 0.0003 s., sukuriamas per vidutiniškai 0.013 s.
-- 10000 įrašų failas nuskaitomas vidutiniškai per 0.046 s., rūšiaviams atliekamas per vidutiniškai 0.003 s., dalijimas i dvi grupes per 0.0025 s., sukuriamas per vidutiniškai 0.023 s.
-- 100000 įrašų failas nuskaitomas vidutiniškai per 0.36 s., rūšiaviams atliekamas per vidutiniškai 0.022 s., dalijimas i dvi grupes per 0.024 s., sukuriamas per vidutiniškai 0.22 s.
-- 1000000 įrašų failas nuskaitomas vidutiniškai per 4.54 s., rūšiaviams atliekamas per vidutiniškai 0.264 s., dalijimas i dvi grupes per 0.3 s., sukuriamas per vidutiniškai 2.8 s.
-- 10000000 įrašų failas nuskaitomas vidutiniškai per 36.36 s., rūšiaviams atliekamas per vidutiniškai 2.73 s., dalijimas i dvi grupes per 3.11 s., sukuriamas per vidutiniškai 28.44 s.
+Antrojoje versijoje matome ir kelis pasikeitimus nuo v0.1 versijos:
+- Sukurta failų generavimo funkcija, kuri sugeneruoja 1000, 10000, 100000, 1000000 ir 10000000 dydžio studentų failus.
+- Sukurtas studentų išskaidymas į dvi grupes: vargšiukus (galutinis balas mažesnis nei 5) ir galvočius (galutinis balas nemažesnis nei 5).
+- Įvykdytas kodo reorganizavimas.
+- Dabar galima atlikti rikiavimą ir pagal galutinį balą.
+- Atlikta programos spartos analizė.
+
+Generavimo vidurkiai:
+- 1000 įrašų failas sukuriamas per vidutiniškai 0.013 s.
+- 10000 įrašų failas sukuriamas per vidutiniškai 0.023 s.
+- 100000 įrašų failas sukuriamas per vidutiniškai 0.22 s.
+- 1000000 įrašų failas sukuriamas per vidutiniškai 2.8 s.
+- 10000000 įrašų failas sukuriamas per vidutiniškai 28.44 s.
 
 # Versija v0.3
 
@@ -29,26 +36,30 @@ Rezultatai:
 Surūšiavimas į dvi grupes:
 |Įrašų skaičius|   Vector (s.)   |   List (s.)   |
 |--------------|----------------:|--------------:|
-|1000          |                 |               |
-|10000         |                 |               |
-|100000        |                 |               |
-|1000000       |                 |               |
-|10000000      |                 |               |
+|1 000         |      0.0003     |               |
+|10 000        |      0.0026     |               |
+|100 000       |      0.0243     |               |
+|1 000 000     |      0.2776     |               |
+|10 000 000    |      2.9258     |               |
 
-Išrikiavimas pagal galutinį balą:
+Failų skaitymas:
 |Įrašų skaičius|   Vector (s.)   |   List (s.)   |
 |--------------|----------------:|--------------:|
-|1000          |                 |               |
-|10000         |                 |               |
-|100000        |                 |               |
-|1000000       |                 |               |
-|10000000      |                 |               |
+|1 000         |      0.0075     |               |
+|10 000        |      0.0386     |               |
+|100 000       |      0.3294     |               |
+|1 000 000     |      4.6707     |               |
+|10 000 000    |     36.3395     |               |
 
 Duomenų įrašymas į failą:
 |Įrašų skaičius|   Vector (s.)   |   List (s.)   |
 |--------------|----------------:|--------------:|
-|1000          |                 |               |
-|10000         |                 |               |
-|100000        |                 |               |
-|1000000       |                 |               |
-|10000000      |                 |               |
+|1 000         |      0.0019     |               |
+|10 000        |      0.0194     |               |
+|100 000       |      0.1668     |               |
+|1 000 000     |      1.7955     |               |
+|10 000 000    |     20.1897     |               |
+
+IŠVADOS: 
+
+Kompiutrio parametrai, su kuriuo buvo atliktas testavimas: 
