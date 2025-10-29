@@ -31,6 +31,13 @@ Generavimo vidurkiai:
 
 # Versija v0.3
 
+v0.3 versijoje taip pat atlikti keli pakeitimai:
+- Pridėtas pasirinkimas kokiame konteineryje norima talpinti studento duomenis (Vector arba List).
+- Rankiniu būdu įvedus duomenis galima pamatyti objekto saugojimo atmintyje adresą.
+- Atlikta spartos analizė su Vector ir List konteineriais.
+
+Analizė:
+
 Rezultatai:
 
 Surūšiavimas į dvi grupes:
