@@ -155,7 +155,8 @@ vector<Studentas> nuskaitymas(mt19937 & gener, uniform_int_distribution<int> & p
     return Grupe;
 }
 
-list<Studentas> nuskaitymaslist(mt19937 & gener, uniform_int_distribution<int> & pazym,uniform_int_distribution<int> & nd){list<Studentas> Grupe;
+list<Studentas> nuskaitymaslist(mt19937 & gener, uniform_int_distribution<int> & pazym,uniform_int_distribution<int> & nd){
+    list<Studentas> Grupe;
     cout<<"Pasirinkite kaip ivesti duomenis:"<<endl;
     cout<<"1 - suvesti ranka"<<endl;
     cout<<"2 - nuskaityti is failo"<<endl;
@@ -363,48 +364,106 @@ void testavimas(mt19937 & gener, uniform_int_distribution<int> & pazym, uniform_
     else if(pas==5) failas="mano10000000.txt";
     else { cout<<"Neteisingas pasirinkimas."<<endl; return; }
     
-    auto start_bendras = high_resolution_clock::now();
-
-    auto start = high_resolution_clock::now();
-    vector<Studentas> grupe = nuskaitymas(gener, pazym, nd, failas);
-    auto end = high_resolution_clock::now();
-    duration<double> diff = end - start;
-    cout<<"Failo "<<failas<<" nuskaitymo laikas: "<<diff.count()<<" s"<<endl;
+    //
+    cout<<"Kiek kartu paleisti testui: ";
+    int pal=0;
+    cin>>pal;
+    if(pal<=0){pal=5;}
     
-    start = high_resolution_clock::now();
-    sort(grupe.begin(), grupe.end(), [](const Studentas &a, const Studentas &b){ return a.gal < b.gal; });
-    end = high_resolution_clock::now();
-    diff = end - start;
-    cout<<grupe.size()<<" irasu rusiavimas didejimo tvarka laikas, su sort funkcija: "<<diff.count()<<" s"<<endl;
+    double vskaitymas=0.0, vskirstymas=0.0, visvedimas=0.0;
+    double lskaitymas=0.0, lskirstymas=0.0, lisvedimas=0.0;
     
-    start = high_resolution_clock::now();
-    vector<Studentas> vargsiukai, galvociai;
-    for(auto & st: grupe){
-        if(st.gal < 5.0) vargsiukai.push_back(st);
-        else galvociai.push_back(st);
+    for(int p=0; p<pal; p++){
+        //
+        //auto start_bendras = high_resolution_clock::now();
+        
+        auto start = high_resolution_clock::now();
+        vector<Studentas> grupe = nuskaitymas(gener, pazym, nd, failas);
+        auto end = high_resolution_clock::now();
+        duration<double> diff = end - start;
+        //
+        vskaitymas=vskaitymas+diff.count();
+        cout<<"Vektoriaus "<<p+1<<" nuskaitymo laikas: "<<diff.count()<<" s"<<endl;
+        //
+        /*start = high_resolution_clock::now();
+         sort(grupe.begin(), grupe.end(), [](const Studentas &a, const Studentas &b){ return a.gal < b.gal; });
+         end = high_resolution_clock::now();
+         diff = end - start;
+         cout<<grupe.size()<<" irasu rusiavimas didejimo tvarka laikas, su sort funkcija: "<<diff.count()<<" s"<<endl;*/
+        
+        start = high_resolution_clock::now();
+        vector<Studentas> vargsiukai, galvociai;
+        for(auto & st: grupe){
+            double bal=st.gal;
+            if(bal < 5.0) vargsiukai.push_back(st);
+            else galvociai.push_back(st);
+        }
+        end = high_resolution_clock::now();
+        diff = end - start;
+        vskirstymas=vskirstymas+diff.count();
+        cout<<"Vektoriaus "<<p+1<<" dalijimas i dvi grupes uztruko: "<<diff.count()<<" s"<<endl;
+        
+        start = high_resolution_clock::now();
+        ofstream fv("vargsiukai_vektorius.txt");
+        for(auto & st: vargsiukai) fv<<st.var<<" "<<st.pav<<" "<<st.gal<<endl;
+        fv.close();
+        ofstream fg("galvociai_vektorius.txt");
+        for(auto & st: galvociai) fg<<st.var<<" "<<st.pav<<" "<<st.gal<<endl;
+        fg.close();
+        end = high_resolution_clock::now();
+        diff = end - start;
+        visvedimas=visvedimas+diff.count();
+        cout<<"Vektoriaus "<<p+1<<" rasymas i failus uztruko: "<<diff.count()<<" s"<<endl;
+        
+        /*start = high_resolution_clock::now();
+         ofstream fg("galvociai_test.txt");
+         for(auto & st: galvociai) fg<<st.var<<" "<<st.pav<<" "<<st.gal<<endl;
+         fg.close();
+         end = high_resolution_clock::now();
+         cout<<grupe.size()<<" irasu galvociu irasymo i faila laikas: "<<diff.count()<<" s"<<endl;
+         
+         auto end_bendras = high_resolution_clock::now();
+         diff = end_bendras - start_bendras;
+         cout<<"Bendras testavimo laikas: "<<diff.count()<<" s"<<endl;
+         
+         cout<<"-------------------------------"<<endl;
+         cout<<"Testavimas baigtas"<<endl;*/
+        start = high_resolution_clock::now();
+        list<Studentas> grupelist = nuskaitymaslist(gener, pazym, nd, failas);
+        end = high_resolution_clock::now();
+        diff = end - start;
+        //
+        lskaitymas=lskaitymas+diff.count();
+        cout<<"Listo "<<p+1<<" nuskaitymo laikas: "<<diff.count()<<" s"<<endl;
+        
+        start = high_resolution_clock::now();
+        list<Studentas> vargsiukailist, galvociailist;
+        for(auto & st: grupelist){
+            double bal=st.gal;
+            if(bal < 5.0) vargsiukailist.push_back(st);
+            else galvociailist.push_back(st);
+        }
+        end = high_resolution_clock::now();
+        diff = end - start;
+        lskirstymas=lskirstymas+diff.count();
+        cout<<"Listo "<<p+1<<" dalijimas i dvi grupes uztruko: "<<diff.count()<<" s"<<endl;
+        
+        start = high_resolution_clock::now();
+        ofstream fv2("vargsiukai_listas.txt");
+        for(auto & st: vargsiukailist) fv2<<st.var<<" "<<st.pav<<" "<<st.gal<<endl;
+        fv2.close();
+        ofstream fg2("galvociai_listas.txt");
+        for(auto & st: galvociailist) fg2<<st.var<<" "<<st.pav<<" "<<st.gal<<endl;
+        fg2.close();
+        end = high_resolution_clock::now();
+        diff = end - start;
+        lisvedimas=lisvedimas+diff.count();
+        cout<<"Listo "<<p+1<<" rasymas i failus uztruko: "<<diff.count()<<" s"<<endl;
     }
-    end = high_resolution_clock::now();
-    diff = end - start;
-    cout<<grupe.size()<<" irasu dalijimas i dvi grupes uztruko: "<<diff.count()<<" s"<<endl;
-    
-    start = high_resolution_clock::now();
-    ofstream fv("vargsiukai_test.txt");
-    for(auto & st: vargsiukai) fv<<st.var<<" "<<st.pav<<" "<<st.gal<<endl;
-    fv.close();
-    end = high_resolution_clock::now();
-    cout<<grupe.size()<<" irasu vargsiuku irasymo i faila laikas: "<<diff.count()<<" s"<<endl;
-    
-    start = high_resolution_clock::now();
-    ofstream fg("galvociai_test.txt");
-    for(auto & st: galvociai) fg<<st.var<<" "<<st.pav<<" "<<st.gal<<endl;
-    fg.close();
-    end = high_resolution_clock::now();
-    cout<<grupe.size()<<" irasu galvociu irasymo i faila laikas: "<<diff.count()<<" s"<<endl;
-    
-    auto end_bendras = high_resolution_clock::now();
-    diff = end_bendras - start_bendras;
-    cout<<"Bendras testavimo laikas: "<<diff.count()<<" s"<<endl;
-    
-    cout<<"-------------------------------"<<endl;
-    cout<<"Testavimas baigtas"<<endl;
-}
+    cout<<endl;
+    cout<<"Testo vidurkiai "<<pal<<" paleidimu:"<<endl;
+    cout<<"Vektorius: skaitymo vidurkis: "<<(vskaitymas/pal)<<" s, dalijimo i dvi grupes vidurkis: "<<(vskirstymas/pal)<<" s, isvedimo vidurkis: "<<(visvedimas/pal)<<" s"<<endl;
+    cout<<"Listas: skaitymo vidurkis: "<<(lskaitymas/pal)<<" s, dalijimo i dvi grupes vidurkis: "<<(lskirstymas/pal)<<" s, isvedimo vidurkis: "<<(lisvedimas/pal)<<" s"<<endl;
+    cout<<"Testavimo pabaiga."<<endl;
+    }
+
