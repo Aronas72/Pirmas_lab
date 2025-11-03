@@ -83,21 +83,21 @@ Rezultatai (duomenys buvo atlikti 5 kartus kiekvienai strategijai ir matuojama s
 **1. Vector konteineris**
 |Įrašų skaičius|   1 strategija   |   2 strategija   |   3 strategija   |
 |--------------|-----------------:|-----------------:|-----------------:|
-|1 000         |                  |                  |                  |
-|10 000        |                  |                  |                  |
-|100 000       |                  |                  |                  |
-|1 000 000     |                  |                  |                  |
-|10 000 000    |                  |                  |                  |
+|1 000         |      0.0004      |      0.0002      |      0.0004      |
+|10 000        |      0.0025      |      0.0018      |      0.0042      |
+|100 000       |      0.0239      |      0.0172      |      0.0447      |
+|1 000 000     |      0.2557      |      0.1819      |      0.4397      |
+|10 000 000    |      2.9507      |      1.8561      |      5.1002      |
 
 **2. List konteineris**
 |Įrašų skaičius|   1 strategija   |   2 strategija   |   3 strategija   |
 |--------------|-----------------:|-----------------:|-----------------:|
-|1 000         |                  |                  |                  |
-|10 000        |                  |                  |                  |
-|100 000       |                  |                  |                  |
-|1 000 000     |                  |                  |                  |
-|10 000 000    |                  |                  |                  |
+|1 000         |      0.0003      |      0.0002      |      0.0001      |
+|10 000        |      0.0023      |      0.0016      |      0.0004      |
+|100 000       |      0.0223      |      0.0156      |      0.0039      |
+|1 000 000     |      0.2271      |      0.1677      |      0.0354      |
+|10 000 000    |      3.0576      |      2.0167      |      0.7461      |
 
-**Išvados:**  
+**Išvados:** iš atliktų testavimų galime matyti, kad vektoriaus konteineriui pati naudingiausia buvo būtent antra strategija, kuri naudoja tik viena naują konteinerį, tačiau list konteineriui greičiausiai suveikė trečia strategija, kurioje buvo naudojamas splice() metodas, kuris labai stipriai paspartina studentų dalijimą į dvi dalis.
 
 **Naudojimosi instrukcija:** 
