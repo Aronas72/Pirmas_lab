@@ -346,6 +346,50 @@ void isvedimaslist(list<Studentas> Grupe, list<Studentas> vargsiukai, list<Stude
     cout<<"Is viso: "<<v.size()<<" vargsiuku ir "<<g.size()<<" galvociu."<<endl;
 }
 
+void strategija1_vector(const vector<Studentas>& grupe, vector<Studentas>& vargsiukai, vector<Studentas>& galvociai, int pasirinkti){
+    for (const auto& st: grupe){
+        double bal = (pasirinkti == 2 ? st.med : st.gal);
+                if(bal < 5.0) vargsiukai.push_back(st);
+                else galvociai.push_back(st);}}
+
+void strategija2_vector(vector<Studentas>& grupe, vector<Studentas>& vargsiukai, int pasirinkti){
+    for(auto it=grupe.begin(); it!=grupe.end(); ){
+        double bal=(pasirinkti==2 ? it->med: it->gal);
+        if(bal<5.0){
+            vargsiukai.push_back(*it);
+            it=grupe.erase(it);
+        } else{
+            ++it;}}}
+
+void strategija3_vector(vector<Studentas>& grupe, vector<Studentas>& vargsiukai, vector<Studentas>& galvociai, int pasirinkti){
+    auto is_vargsiukas = [pasirinkti](const Studentas& st){return (pasirinkti==2?st.med:st.gal)<5.0; };
+        vector<Studentas> tmp=grupe;
+        auto it=std::stable_partition(tmp.begin(), tmp.end(), is_vargsiukas);
+        vargsiukai.insert(vargsiukai.end(), tmp.begin(), it);
+        galvociai.insert(galvociai.end(), it, tmp.end());}
+
+void strategija1_list(const list<Studentas>& grupe, list<Studentas>& vargsiukai, list<Studentas>& galvociai, int pasirinkti){
+    for(const auto & st: grupe){
+        double bal = (pasirinkti == 2 ? st.med : st.gal);
+        if(bal < 5.0) vargsiukai.push_back(st);
+        else galvociai.push_back(st);}}
+    
+void strategija2_list(list<Studentas>& grupe, list<Studentas>& vargsiukai, int pasirinkti){
+    for(auto it = grupe.begin(); it != grupe.end(); ){
+            double bal = (pasirinkti == 2 ? it->med : it->gal);
+            if(bal<5.0){
+                vargsiukai.push_back(*it);
+                it = grupe.erase(it);
+            } else ++it;}}
+    
+void strategija3_list(list<Studentas>& grupe, list<Studentas>& vargsiukai, list<Studentas>& galvociai, int pasirinkti){
+    for(auto it = grupe.begin(); it != grupe.end(); ){
+            double bal = (pasirinkti == 2 ? it->med : it->gal);
+            if(bal < 5.0){
+                vargsiukai.splice(vargsiukai.end(), grupe, it++);
+            } else {
+                galvociai.splice(galvociai.end(), grupe, it++);}}}
+
 void testavimas(mt19937 & gener, uniform_int_distribution<int> & pazym, uniform_int_distribution<int> & nd){
     cout<<"Pasirinkite is kokio failo atlikti testavima:"<<endl;
     cout<<"1 - mano1000.txt"<<endl;
