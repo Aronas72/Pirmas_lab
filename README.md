@@ -70,3 +70,34 @@ Duomenų įrašymas į failą:
 IŠVADOS: iš rezultatų matome, kad labai didelių skirtumų tarp konteinerių nėra. Su duomenų kiekiais iki 1000000 įskaitant dirbama labai panašiu tempu, tik galima išskirti 1000000 duomenų įrašymą į failą, kur rezultatas truputį aiškesnis. Nuo 10000000 matome jau Vector konteinerio pranašumą visose testavimo kategorijose, kai skirtumas siekia 1-1.5 sekundės.
 
 Kompiutrio parametrai, su kuriuo buvo atliktas testavimas: 8 GB RAM, SSD 251 GB, procesorius gali būti iki 3.49 GHz.
+
+# Versija v1.0
+
+Išmatuota programos veikimo sparta priklausomai nuo studentų dalijimo į dvi grupes strategijos:
+- 1 strategija - anksčiau naudotas būdas, kai bendras studentai konteineris skaidomas ir vargšiukus ir galvočius ir studentas lieka dviejuose konteineriuose: studentai ir vargšiukai arba galvočiai.
+- 2 strategija - bendras konteineris studentai skaidomas panaudojant tik vieną naują konteinerį. Tokiu būdu, jeigu studentas yra vargšiukas, jis įkeliamas į vargšiukų konteinerį ir ištrinamas iš studentai konteinerio. Po šio žingsnio studentai konteineryje lieka tik galvočiai.
+- 3 strategija - efektyvesnė iš dviejų praeitų strategijų panaudojama taikant "efektyvius" darbo su konteineriais metodus.
+
+Rezultatai (duomenys buvo atlikti 5 kartus kiekvienai strategijai ir matuojama sekundėmis):
+
+**1. Vector konteineris**
+|Įrašų skaičius|   1 strategija   |   2 strategija   |   3 strategija   |
+|--------------|-----------------:|-----------------:|-----------------:|
+|1 000         |                  |                  |                  |
+|10 000        |                  |                  |                  |
+|100 000       |                  |                  |                  |
+|1 000 000     |                  |                  |                  |
+|10 000 000    |                  |                  |                  |
+
+**2. List konteineris**
+|Įrašų skaičius|   1 strategija   |   2 strategija   |   3 strategija   |
+|--------------|-----------------:|-----------------:|-----------------:|
+|1 000         |                  |                  |                  |
+|10 000        |                  |                  |                  |
+|100 000       |                  |                  |                  |
+|1 000 000     |                  |                  |                  |
+|10 000 000    |                  |                  |                  |
+
+**Išvados:**  
+
+**Naudojimosi instrukcija:** 
