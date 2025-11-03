@@ -56,6 +56,17 @@ vector<Studentas> nuskaitymas(mt19937 & gener, uniform_int_distribution<int> & p
 list<Studentas> nuskaitymaslist(mt19937 & gener, uniform_int_distribution<int> & pazym,uniform_int_distribution<int> & nd, const string& failpav);
 void isvedimas(vector<Studentas> Grupe, vector<Studentas> vargsiukai, vector<Studentas> galvociai, int pasirinkti, int rik);
 void isvedimaslist(list<Studentas> Grupe, list<Studentas> vargsiukai, list<Studentas> galvociai, int pasirinkti, int rik);
+
 void testavimas(mt19937 & gener, uniform_int_distribution<int> & pazym, uniform_int_distribution<int> & nd);
 
+void strategija1_vector(const vector<Studentas>& grupe, vector<Studentas>& vargsiukai, vector<Studentas>& galvociai, int pasirinkti);
+void strategija2_vector(vector<Studentas>& grupe, vector<Studentas>& vargsiukai, int pasirinkti);
+void strategija3_vector(vector<Studentas>& grupe, vector<Studentas>& vargsiukai, vector<Studentas>& galvociai, int pasirinkti);
+void strategija1_list(const list<Studentas>& grupe, list<Studentas>& vargsiukai, list<Studentas>& galvociai, int pasirinkti);
+void strategija2_list(list<Studentas>& grupe, list<Studentas>& vargsiukai, int pasirinkti);
+void strategija3_list(list<Studentas>& grupe, list<Studentas>& vargsiukai, list<Studentas>& galvociai, int pasirinkti);
+
+
+
 #endif
+
