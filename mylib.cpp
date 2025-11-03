@@ -408,7 +408,14 @@ void testavimas(mt19937 & gener, uniform_int_distribution<int> & pazym, uniform_
     else if(pas==5) failas="mano10000000.txt";
     else { cout<<"Neteisingas pasirinkimas."<<endl; return; }
     
-    //
+    int strategija=0;
+    cout<<"Pasirinkite strategija:"<<endl;
+    cout<<"1 - pirma strategija"<<endl;
+    cout<<"2 - antra strategija"<<endl;
+    cout<<"3 - trecia strategija"<<endl;
+    cout<<"Jusu pasirinkimas: ";
+    cin>>strategija;
+    
     cout<<"Kiek kartu paleisti testui: ";
     int pal=0;
     cin>>pal;
@@ -423,31 +430,24 @@ void testavimas(mt19937 & gener, uniform_int_distribution<int> & pazym, uniform_
         vector<Studentas> grupe = nuskaitymas(gener, pazym, nd, failas);
         auto end = high_resolution_clock::now();
         duration<double> diff = end - start;
-        //
         vskaitymas=vskaitymas+diff.count();
         cout<<"Vektoriaus "<<p+1<<" nuskaitymo laikas: "<<diff.count()<<" s"<<endl;
     
-        start = high_resolution_clock::now();
+        start=high_resolution_clock::now();
         vector<Studentas> vargsiukai, galvociai;
-        for(auto & st: grupe){
-            double bal=st.gal;
-            if(bal < 5.0) vargsiukai.push_back(st);
-            else galvociai.push_back(st);
-        }
-        end = high_resolution_clock::now();
-        diff = end - start;
+        if (strategija==1) strategija1_vector(grupe, vargsiukai, galvociai, 1);
+        else if(strategija==2) strategija2_vector(grupe, vargsiukai, 1);
+        else if(strategija==3) strategija3_vector(grupe, vargsiukai, galvociai, 1);
+        end=high_resolution_clock::now();
+        diff=end-start;
         vskirstymas=vskirstymas+diff.count();
         cout<<"Vektoriaus "<<p+1<<" dalijimas i dvi grupes uztruko: "<<diff.count()<<" s"<<endl;
         
-        start = high_resolution_clock::now();
-        ofstream fv("vargsiukai_vektorius.txt");
-        for(auto & st: vargsiukai) fv<<st.var<<" "<<st.pav<<" "<<st.gal<<endl;
-        fv.close();
-        ofstream fg("galvociai_vektorius.txt");
-        for(auto & st: galvociai) fg<<st.var<<" "<<st.pav<<" "<<st.gal<<endl;
-        fg.close();
-        end = high_resolution_clock::now();
-        diff = end - start;
+        start=high_resolution_clock::now();
+        if (strategija==2) isvedimas(grupe, vargsiukai, grupe, 1, 3);
+        else isvedimas(grupe, vargsiukai, galvociai, 1, 3);
+        end=high_resolution_clock::now();
+        diff=end-start;
         visvedimas=visvedimas+diff.count();
         cout<<"Vektoriaus "<<p+1<<" rasymas i failus uztruko: "<<diff.count()<<" s"<<endl;
         
@@ -455,29 +455,22 @@ void testavimas(mt19937 & gener, uniform_int_distribution<int> & pazym, uniform_
         list<Studentas> grupelist = nuskaitymaslist(gener, pazym, nd, failas);
         end = high_resolution_clock::now();
         diff = end - start;
-        //
         lskaitymas=lskaitymas+diff.count();
         cout<<"Listo "<<p+1<<" nuskaitymo laikas: "<<diff.count()<<" s"<<endl;
         
-        start = high_resolution_clock::now();
+        start=high_resolution_clock::now();
         list<Studentas> vargsiukailist, galvociailist;
-        for(auto & st: grupelist){
-            double bal=st.gal;
-            if(bal < 5.0) vargsiukailist.push_back(st);
-            else galvociailist.push_back(st);
-        }
-        end = high_resolution_clock::now();
-        diff = end - start;
+        if (strategija==1) strategija1_list(grupelist, vargsiukailist, galvociailist, 1);
+        else if(strategija==2) strategija2_list(grupelist, vargsiukailist, 1);
+        else if(strategija==3) strategija3_list(grupelist, vargsiukailist, galvociailist, 1);
+        end=high_resolution_clock::now();
+        diff=end-start;
         lskirstymas=lskirstymas+diff.count();
         cout<<"Listo "<<p+1<<" dalijimas i dvi grupes uztruko: "<<diff.count()<<" s"<<endl;
         
         start = high_resolution_clock::now();
-        ofstream fv2("vargsiukai_listas.txt");
-        for(auto & st: vargsiukailist) fv2<<st.var<<" "<<st.pav<<" "<<st.gal<<endl;
-        fv2.close();
-        ofstream fg2("galvociai_listas.txt");
-        for(auto & st: galvociailist) fg2<<st.var<<" "<<st.pav<<" "<<st.gal<<endl;
-        fg2.close();
+        if (strategija==2) isvedimaslist(grupelist, vargsiukailist, grupelist, 1, 3);
+        else isvedimaslist(grupelist, vargsiukailist, galvociailist, 1, 3);
         end = high_resolution_clock::now();
         diff = end - start;
         lisvedimas=lisvedimas+diff.count();
