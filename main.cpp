@@ -65,26 +65,32 @@ int main(){
     cout<<"Pasirinkimas: ";
     cin>>rik;
     
+    int strategija=0;
+    cout<<"Pasirinkite strategija:"<<endl;
+    cout<<"1 - pirma strategija"<<endl;
+    cout<<"2 - antra strategija"<<endl;
+    cout<<"3 - trecia strategija"<<endl;
+    cout<<"Jusu pasirinkimas: ";
+    cin>>strategija;
+    
     if(konteineris == 1){
         vector<Studentas> grupe=nuskaitymas(gener, pazym, nd);
         vector<Studentas> vargsiukai;
         vector<Studentas> galvociai;
-        for(const auto & st: grupe){
-            double balas = (pasirinkti == 2 ? st.med : st.gal);
-            if(balas < 5.0) vargsiukai.push_back(st);
-            else galvociai.push_back(st);}
-        
-        isvedimas(grupe, vargsiukai, galvociai, pasirinkti, rik);}
+        if (strategija==1) strategija1_vector(grupe, vargsiukai, galvociai, pasirinkti);
+        else if(strategija==2) strategija2_vector(grupe, vargsiukai, pasirinkti);
+        else if(strategija==3) strategija3_vector(grupe, vargsiukai, galvociai, pasirinkti);
+        if (strategija==2) isvedimas(grupe, vargsiukai, grupe, pasirinkti, rik);
+        else isvedimas(grupe, vargsiukai, galvociai, pasirinkti, rik);}
     
     else if(konteineris == 2){
         list<Studentas> grupe=nuskaitymaslist(gener, pazym, nd);
         list<Studentas> vargsiukai;
         list<Studentas> galvociai;
-        for(const auto & st: grupe){
-            double balas = (pasirinkti == 2 ? st.med : st.gal);
-            if(balas < 5.0) vargsiukai.push_back(st);
-            else galvociai.push_back(st);}
-        
-        isvedimaslist(grupe, vargsiukai, galvociai, pasirinkti, rik);
+        if (strategija==1) strategija1_list(grupe, vargsiukai, galvociai, pasirinkti);
+        else if(strategija==2) strategija2_list(grupe, vargsiukai, pasirinkti);
+        else if(strategija==3) strategija3_list(grupe, vargsiukai, galvociai, pasirinkti);
+        if (strategija==2) isvedimaslist(grupe, vargsiukai, grupe, pasirinkti, rik);
+        else isvedimaslist(grupe, vargsiukai, galvociai, pasirinkti, rik);
     }
 }
