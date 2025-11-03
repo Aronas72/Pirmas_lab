@@ -353,13 +353,16 @@ void strategija1_vector(const vector<Studentas>& grupe, vector<Studentas>& vargs
                 else galvociai.push_back(st);}}
 
 void strategija2_vector(vector<Studentas>& grupe, vector<Studentas>& vargsiukai, int pasirinkti){
-    for(auto it=grupe.begin(); it!=grupe.end(); ){
-        double bal=(pasirinkti==2 ? it->med: it->gal);
-        if(bal<5.0){
-            vargsiukai.push_back(*it);
-            it=grupe.erase(it);
-        } else{
-            ++it;}}}
+    vector<Studentas> Vargsai;
+        size_t newSize = 0;
+        for (size_t i = 0; i < grupe.size(); i++)
+        {
+            if (grupe[i].gal < 5)
+                Vargsai.push_back(grupe[i]);
+            else
+                grupe[newSize++] = std::move(grupe[i]);
+        }
+        grupe.erase(grupe.begin() + newSize, grupe.end());}
 
 void strategija3_vector(vector<Studentas>& grupe, vector<Studentas>& vargsiukai, vector<Studentas>& galvociai, int pasirinkti){
     auto is_vargsiukas = [pasirinkti](const Studentas& st){return (pasirinkti==2?st.med:st.gal)<5.0; };
@@ -432,7 +435,7 @@ void testavimas(mt19937 & gener, uniform_int_distribution<int> & pazym, uniform_
         duration<double> diff = end - start;
         vskaitymas=vskaitymas+diff.count();
         cout<<"Vektoriaus "<<p+1<<" nuskaitymo laikas: "<<diff.count()<<" s"<<endl;
-    
+
         start=high_resolution_clock::now();
         vector<Studentas> vargsiukai, galvociai;
         if (strategija==1) strategija1_vector(grupe, vargsiukai, galvociai, 1);
@@ -480,5 +483,4 @@ void testavimas(mt19937 & gener, uniform_int_distribution<int> & pazym, uniform_
     cout<<"Testo vidurkiai "<<pal<<" paleidimu:"<<endl;
     cout<<"Vektorius: skaitymo vidurkis: "<<(vskaitymas/pal)<<" s, dalijimo i dvi grupes vidurkis: "<<(vskirstymas/pal)<<" s, isvedimo vidurkis: "<<(visvedimas/pal)<<" s"<<endl;
     cout<<"Listas: skaitymo vidurkis: "<<(lskaitymas/pal)<<" s, dalijimo i dvi grupes vidurkis: "<<(lskirstymas/pal)<<" s, isvedimo vidurkis: "<<(lisvedimas/pal)<<" s"<<endl;
-    cout<<"Testavimo pabaiga."<<endl;
-    }
+    cout<<"Testavimo pabaiga."<<endl;}
