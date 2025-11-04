@@ -116,3 +116,18 @@ Rezultatai (duomenys buvo atlikti 5 kartus kiekvienai strategijai ir matuojama s
   - Linux/macOS: ./studentai
 
 # Paleidimo instrukcija
+1. Paleidus programą atsiranda trys galimos pasirinkimo opcijos:
+   - Įvesti studentus ranka arba nuskaityti iš failo
+   - Sugeneruoti failus pačiam
+   - Atlikti testavimą su sugeneruotais failais
+Pasirinkus antrą opciją, programa sugeneruoja failus su įrašais nuo 1000 iki 10000000 ir tęsia programą toliau. Pasirinkus trečią opciją galima atlikti testavimą su pasirinktu failu: išmatuoti jo nuskaitymo laiką, dalijimo į dvi grupes ir išvedimo į failą. Turime galimybę įvesti kiek kartų norime testuoti ir kokį failą norime. Kai testavimas atliekamas programa baigia savo darbą.
+2. Sugeneravus failus arba pasirinkus pirmą opciją, toliau iššoka pasirinkimas, kuriame konteineryje norime saugoti savo duomenis: Vector arba List.
+3. Kai pasirenkame konteinerį, galime pasirinkti, pagal ką skaičiuosime galutinį balą: mediana, vidurkis arba abu.
+4. Toliau turime galimybę pasirinkti ir rikiavimą: pagal vardą, pagal pavardę, pagal galutinį balą.
+5. Vėliau galime pasirinkti pagal kurią strategiją norime dalinti studentus į vargšiukus ir galvočius. (Visos trys strategijos aprašytos aukščiau ir pateikti testavimo laikai kiekvienai strategijai abiems konteineriams).
+6. Toliau turime pasirinkimą ar nuskaityti duomenis iš failo arba galime patys suvesti ranka.
+7. Instrukcijos abiems pasirinkimams:
+  - Įvedimas ranka: pasirenkame kiek studentų norime įvesti --> įvedame studento vardą ir pavardę --> pasirenkame ar norime automatiškai sugeneruoti duomenis, ar vėl įvesti juos ranka --> studentas pagal formulę **0.4 * (namų darbų vdurkis) + 0.6 * egzaminas** yra priskiriamas vargšiukams, kurių galutinis balas <5, arba galvočiams, jeigu balas >=5.
+  - Nuskaitymas iš failo: pasirenkame failą, kurį norime nuskaityti --> parodomas failo nuskaitymo laikas --> parodoma kiek iš viso yra galvočių ir vargšiukų.
+8. Atlikę visus šiuos veiksmus ir padarę savo norimus pasirinkimus galime mėgautis rezultatais, kurie yra išvedami į failus pagal mūsų pačių atliktus pasirinkimus.
+9. Jei norite duomenis pergrupuoti kitaip arba patikrinti su kitais duomenimis, tai visus žingsnius reiktų pakartoti iš naujo.
