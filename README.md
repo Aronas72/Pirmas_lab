@@ -100,4 +100,19 @@ Rezultatai (duomenys buvo atlikti 5 kartus kiekvienai strategijai ir matuojama s
 
 **Išvados:** iš atliktų testavimų galime matyti, kad vektoriaus konteineriui pati naudingiausia buvo būtent antra strategija, kuri naudoja tik viena naują konteinerį, tačiau list konteineriui greičiausiai suveikė trečia strategija, kurioje buvo naudojamas splice() metodas, kuris labai stipriai paspartina studentų dalijimą į dvi dalis.
 
-**Naudojimosi instrukcija:** 
+# Diegimo instrukcija
+1. Įsitikinti, kad kompiuteryje yra įdiegta C++ kompiliatorius, cmake, make ir github, jei ne - reikėtų įsidiegti šiuos dalykus.
+2. Atsidaryti savo kompiuteryje terminalą ir įvesti šias eilutes:
+  - git clone https://github.com/Aronas72/Pirmas_lab.git
+  - cd Pirmas_lab
+  - (Jeigu neturite parsisiuntę git, tai ne problema, galite atsisiųsti ZIP failą tiesiai iš GitHub).
+3. Sukurkite aplanką, skirtą kompiliavimui:
+  - mkdir build
+  - cd build
+4. Toliau įveskite eilutę cmake ..
+5. Kitas žingsnis - kompiliuoti projektą: reikia įvesti eilutę cmake --build
+6. Jeigu visi žingsniai buvo atlikti sėkmingai, tai liko tik paleisti programą:
+  - Windows: studentai.exe;
+  - Linux/macOS: ./studentai
+
+# Paleidimo instrukcija
