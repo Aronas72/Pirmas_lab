@@ -386,12 +386,11 @@ void strategija2_list(list<Studentas>& grupe, list<Studentas>& vargsiukai, int p
             } else ++it;}}
     
 void strategija3_list(list<Studentas>& grupe, list<Studentas>& vargsiukai, list<Studentas>& galvociai, int pasirinkti){
-    for(auto it = grupe.begin(); it != grupe.end(); ){
-            double bal = (pasirinkti == 2 ? it->med : it->gal);
-            if(bal < 5.0){
-                vargsiukai.splice(vargsiukai.end(), grupe, it++);
-            } else {
-                galvociai.splice(galvociai.end(), grupe, it++);}}}
+    auto is_vargsiukas = [pasirinkti](const Studentas& st){return (pasirinkti==2?st.med:st.gal)<5.0; };
+        list<Studentas> tmp=grupe;
+        auto it=std::stable_partition(tmp.begin(), tmp.end(), is_vargsiukas);
+        vargsiukai.insert(vargsiukai.end(), tmp.begin(), it);
+        galvociai.insert(galvociai.end(), it, tmp.end());}
 
 void testavimas(mt19937 & gener, uniform_int_distribution<int> & pazym, uniform_int_distribution<int> & nd){
     cout<<"Pasirinkite is kokio failo atlikti testavima:"<<endl;
